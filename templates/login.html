@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+login
+{% endblock title %}
+
+
+
+{% block content %}
+<section class="vh-100 bg-dark">
+    <div class="container py-5 h-100 ">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card bg-dark text-white border border-2 border-light shadow" style="border-radius: 1rem;">
+                    <div class="card-body p-5 text-center">
+
+                        <h2 class=" fw-bold  mt-0 mb-3">LOGIN</h2>
+
+
+                        <div class="alert alert-danger alert-dismissible fade  m-0 {% if  val %} show   {% endif %}">
+                            <p class="m-0 p-0 h6">{{msg}}</p>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+
+                        </div>
+
+
+
+                        <form action="" onsubmit="return validate()" method="post">
+                            <!-- <form method="POST"> -->
+                            {% csrf_token %}
+                            <div class="form-outline form-white mb-4 mt-2">
+                                <input type="text" id="email" class="form-control form-control-lg" name="username"
+                                    placeholder="Email" />
+                            </div>
+
+                            <div class="form-outline form-white mb-4">
+                                <input type="password" id="password" class="form-control form-control-lg"
+                                    placeholder="Password" name="password" />
+                            </div>
+
+                            <button class="btn btn-outline-light btn-lg px-5 w-100" type="submit">Login</button>
+
+                        </form>
+
+
+                        <div>
+
+                            <p class="mb-0 mt-2">Don't have an account? <a href="{% url 'register' %}"
+                                    class="text-white-50 fw-bold">Sign
+                                    Up</a>
+                            </p>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
+
+
+{% block script %}
+<script>
+    function validate() {
+        let email = document.getElementById("email")
+        let password = document.getElementById("password")
+        let mgs = document.getElementById('msg')
+        let msg_content = document.getElementById('msg_content')
+
+
+        if (email.value.trim() == "" || password.value.trim() == "") {
+            msg_content.innerHTML = "Please Fill both fields!"
+            msg.classList.add('show')
+            return false;
+        }
+        else {
+            return true
+        }
+
+    }
+</script>
+
+
+{% endblock script %}
