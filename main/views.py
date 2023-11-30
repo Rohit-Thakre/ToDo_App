@@ -10,19 +10,17 @@ from django.db.models import Q
 
 # Create your views here.
 def home(request): 
+    todo = None
     search = request.GET.get('search') 
     if search: 
-        todo = ToDo.objects.filter( Q(user= request.user) & Q(label__icontains=search) | Q(description__icontains = search))
+        todo = ToDo.objects.filter( Q(user= request.user) & Q(label__icontains=search) | Q(description__icontains = search)).order_by('completed', '-created')
         context = {'todo':todo}
 
-        print('+++', todo)
 
         return render(request, 'home.html', context)
 
-
-    print(request.user)
-    todo = ToDo.objects.filter(user = request.user).order_by('-created')
-    print(todo)
+    if request.user.is_authenticated:
+        todo = ToDo.objects.filter(user = request.user).order_by('completed','-created')
 
     context = {'todo':todo}
 
@@ -85,7 +83,7 @@ def register(request):
     return render(request, 'register.html')
 
 
-
+@login_required()
 def remove_task(request, id): 
     task = ToDo.objects.get(id=id)
 
