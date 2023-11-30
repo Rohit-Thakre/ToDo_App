@@ -6,9 +6,20 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from main.models import ToDo
+from django.db.models import Q
 
 # Create your views here.
 def home(request): 
+    search = request.GET.get('search') 
+    if search: 
+        todo = ToDo.objects.filter( Q(user= request.user) & Q(label__icontains=search) | Q(description__icontains = search))
+        context = {'todo':todo}
+
+        print('+++', todo)
+
+        return render(request, 'home.html', context)
+
+
     print(request.user)
     todo = ToDo.objects.filter(user = request.user).order_by('-created')
     print(todo)
