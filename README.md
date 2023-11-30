@@ -9,7 +9,7 @@ git clone https://github.com/Rohit-Thakre/ToDo_App.git
 
 ## Install dependencies using this command.
 ```
-pip -r install requirements.txt
+pip install -r requirements.txt
 ```
 
 
