@@ -43,7 +43,7 @@ def user_login(request):
                 return render(request, 'login.html', {'val': True,  'msg': "Password Incorrect !"})
 
         else:
-            return render(request, 'login.html', {'val': True,  'msg': "No account with this email"})
+            return render(request, 'login.html', {'val': True,  'msg': "No account with this credentials"})
 
     return render(request, 'login.html', {'val': False})
 
@@ -121,10 +121,25 @@ def create_task(request, id=None):
         completed = int(request.POST.get('completed', False))
         label = request.POST.get('label' ,' ')
         description = request.POST.get('des', ' ')
-        print(label, description, completed)
-        print('------completed', completed)
 
         task = ToDo.objects.get_or_create(label=label, description=description, completed = completed,user= request.user)
         return redirect('home')
 
     return render(request, 'create_task.html' , context)
+
+
+
+
+def user(request):
+    todo= ToDo.objects.filter(user= request.user).order_by('completed', '-created')
+
+    context = {'todo':todo}
+
+    return render(request, 'user.html', context)
+
+
+def del_ac(request): 
+    user = User.objects.get(username=request.user)
+    user.delete()
+
+    return redirect('home')

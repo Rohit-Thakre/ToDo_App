@@ -3,7 +3,7 @@
 
 
 {% block title %}
-Home
+Account
 {% endblock title %}
 
 
@@ -11,11 +11,12 @@ Home
 
 {% block content %}
 
+
+
 <div class="row justify-content-center mt-3">
     <div class="col col-md-8 border border-1 border-primary p-3 rounded-3">
 
         <div class="d-flex justify-content-between">
-
 
 
             {% if request.user.is_authenticated %}
@@ -27,7 +28,7 @@ Home
             <span> <a href="{% url 'home' %}"> <i class="fa-solid fa-house fa-xl"
                         style="color: #0b0b0b;"></i></a></span>
             <span>
-                <a href="{% url 'user' %}" class="text-decoration-none text-dark text-uppercase">
+                <a href="" class="text-decoration-none text-dark text-uppercase">
                     <i class="fas fa-user"></i>
                     {{request.user}}
                 </a>
@@ -35,7 +36,8 @@ Home
 
             {% else %}
             <span> <a href="{% url 'login' %}" class="text-decoration-none text-dark"> <i
-                        class="fa-solid fa-right-to-bracket"></i> Login</a></span>
+                        class="fa-solid fa-right-to-bracket"></i>
+                    Login</a></span>
             <span>
 
                 <a href="{% url 'register' %}" class=" text-decoration-none text-dark"> <i
@@ -47,23 +49,10 @@ Home
         </div>
         <hr>
 
-        <form class="d-flex my-3">
-            <input class="form-control me-2 p-2 rounded-3" type="search" placeholder="Search" aria-label="Search"
-                name="search">
-            <button class="btn btn-outline-success rounded-3" type="submit">Search</button>
-        </form>
 
-        <span class="bg-primary text-white rounded-3 p-2 mx-auto">
-            <a href="{% url 'create_task' %}" class="text-decoration-none text-light">
-
-                <i class="fa fa-marker" style="color: #f2f2f3;"></i>
-                Create
-            </a>
-        </span>
-
-        <hr>
-
-
+        <div>
+            <h5 class="text-center">Welcome, {{request.user}}</h5>
+        </div>
         {% for obj in todo  %}
 
 
@@ -91,9 +80,11 @@ Home
         </div>
         {% endfor %}
 
+        <p class="text-danger text-center mt-4">Want to delete account ? <br>
+            <a href="{% url 'delete_account' %}" class="btn btn-danger">Delete Account</a>
+        </p>
     </div>
 </div>
-
 
 
 {% endblock content %}

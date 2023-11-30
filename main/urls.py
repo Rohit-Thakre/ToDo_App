@@ -5,6 +5,8 @@ urlpatterns = [
     
     path('' , views.home, name='home'),
 
+    path('user/', views.user, name='user'),
+
     path('login/', views.user_login, name='login'),
     path('log_out/', views.user_logout, name='logout'),
     path('register/', views.register, name='register'),
@@ -13,5 +15,7 @@ urlpatterns = [
 
     path('create_task/', views.create_task, name='create_task'),
     path('create_task/<int:id>/', views.create_task, name='create_task'),
+
+    path('delete_ac/', views.del_ac, name='delete_account'),
     
 ]
