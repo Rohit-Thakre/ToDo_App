@@ -52,6 +52,7 @@ Account
 
         <div>
             <h5 class="text-center">Welcome, {{request.user}}</h5>
+            <h6 class="d-flex justify-content-end me-2 text-decoration-underline">Total Tasks : {{todo_cnt}}</h6>
         </div>
         {% for obj in todo  %}
 

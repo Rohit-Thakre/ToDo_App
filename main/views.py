@@ -133,7 +133,7 @@ def create_task(request, id=None):
 def user(request):
     todo= ToDo.objects.filter(user= request.user).order_by('completed', '-created')
 
-    context = {'todo':todo}
+    context = {'todo':todo, 'todo_cnt': todo.count()}
 
     return render(request, 'user.html', context)
 
