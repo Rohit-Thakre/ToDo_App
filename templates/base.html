@@ -30,14 +30,48 @@
 
     <body>
 
-        <div class="container-fluid m-0 p-0">
+        <div class="container">
+            <div class="row justify-content-center mt-3">
+                <div class="col-md-6 col-12 p-3 rounded-3 shadow">
 
-            {% block content %}
+                    <div class="d-flex justify-content-between">
 
 
 
+                        {% if request.user.is_authenticated %}
 
-            {% endblock content %}
+                        <span><a href="{% url 'logout' %}" class="text-decoration-none text-dark"> Log Out
+                                <i class="fa-solid fa-right-to-bracket"></i> </a>
+                        </span>
+
+                        <span> <a href="{% url 'home' %}"> <i class="fa-solid fa-house fa-xl"
+                                    style="color: #0b0b0b;"></i></a></span>
+                        <span>
+                            <a href="{% url 'user' %}" class="text-decoration-none text-dark text-uppercase">
+                                <i class="fas fa-user"></i>
+                                {{request.user}}
+                            </a>
+                        </span>
+
+                        {% else %}
+                        <span> <a href="{% url 'login' %}" class="text-decoration-none text-dark"> <i
+                                    class="fa-solid fa-right-to-bracket"></i> Login</a></span>
+                        <span>
+
+                            <a href="{% url 'register' %}" class=" text-decoration-none text-dark"> <i
+                                    class="fa-solid fa-id-card"></i>Register</a>
+                        </span>
+                        {% endif %}
+
+
+                    </div>
+                    <hr>
+                    {% block content %}
+
+                    {% endblock content %}
+                </div>
+            </div>
+
 
         </div>
         <!-- Option 1: Bootstrap Bundle with Popper -->

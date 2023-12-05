@@ -11,81 +11,54 @@ Account
 
 {% block content %}
 
+<form class="d-flex my-3">
+    <input class="form-control me-2 p-2 rounded-pill" type="search" placeholder="Search" aria-label="Search"
+        name="search">
+    <button class="btn btn-outline-success rounded-pill" type="submit">Search</button>
+</form>
+
+<div class="d-flex justify-content-between">
 
 
-<div class="row justify-content-center mt-3">
-    <div class="col col-md-8 border border-1 border-primary p-3 rounded-3">
+    <a href="{% url 'create_task' %}" class="btn btn-primary rounded-pill">
+        <i class="fas fa-marker" style="color: #f2f2f3;"></i>
+        Create
+    </a>
 
-        <div class="d-flex justify-content-between">
+    <span class="h5 text-decoration-underline">Total Tasks : {{todo_cnt}}</span>
+</div>
 
+<hr>
 
-            {% if request.user.is_authenticated %}
+{% for obj in todo  %}
+<div class="my-3">
 
-            <span><a href="{% url 'logout' %}" class="text-decoration-none text-dark"> Log Out
-                    <i class="fa-solid fa-right-to-bracket"></i> </a>
-            </span>
-
-            <span> <a href="{% url 'home' %}"> <i class="fa-solid fa-house fa-xl"
-                        style="color: #0b0b0b;"></i></a></span>
-            <span>
-                <a href="" class="text-decoration-none text-dark text-uppercase">
-                    <i class="fas fa-user"></i>
-                    {{request.user}}
-                </a>
-            </span>
-
-            {% else %}
-            <span> <a href="{% url 'login' %}" class="text-decoration-none text-dark"> <i
-                        class="fa-solid fa-right-to-bracket"></i>
-                    Login</a></span>
-            <span>
-
-                <a href="{% url 'register' %}" class=" text-decoration-none text-dark"> <i
-                        class="fa-solid fa-id-card"></i>Register</a>
-            </span>
-            {% endif %}
+    <div class="d-flex justify-content-between border border-1 border-secondary rounded-pill">
+        <p class=" ms-3  p-0 mt-3 text-capitalize">
+            <a href="create_task/{{obj.id}}/" class="text-decoration-none text-dark">
+                <input class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault"
+                    {% if obj.completed %} checked {% endif %} disabled>
+                {{obj.label}}
 
 
-        </div>
-        <hr>
+            </a>
+        </p>
 
-
-        <div>
-            <h5 class="text-center">Welcome, {{request.user}}</h5>
-            <h6 class="d-flex justify-content-end me-2 text-decoration-underline">Total Tasks : {{todo_cnt}}</h6>
-        </div>
-        {% for obj in todo  %}
-
-
-        <div class="my-3">
-
-            <div class="d-flex justify-content-between border border-1 border-secondary rounded-pill">
-                <p class=" ms-3  p-0 mt-3 text-capitalize">
-                    <a href="create_task/{{obj.id}}/" class="text-decoration-none text-dark">
-                        <input class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault"
-                            {% if obj.completed %} checked {% endif %} disabled>
-                        {{obj.label}}
-
-
-                    </a>
-                </p>
-
-                <p>
-                    <span class="ms-auto text-secondary">{{obj.created}}</span>
-                    <a class="ms-auto rounded-pill px-4 text-decoration-none text-dark" href="remove_task/{{obj.id}}/">
-                        <i class="fas fa-trash m-0 p-0 mt-3 fs-4" style="color: #ea0d0d;"></i>
-                    </a>
-                </p>
-            </div>
-
-        </div>
-        {% endfor %}
-
-        <p class="text-danger text-center mt-4">Want to delete account ? <br>
-            <a href="{% url 'delete_account' %}" class="btn btn-danger">Delete Account</a>
+        <p>
+            <span class="ms-auto text-secondary">{{obj.created}}</span>
+            <a class="ms-auto rounded-pill px-4 text-decoration-none text-dark" href="remove_task/{{obj.id}}/">
+                <i class="fas fa-trash m-0 p-0 mt-3 fs-4" style="color: #ea0d0d;"></i>
+            </a>
         </p>
     </div>
+
 </div>
+{% endfor %}
+
+<p class="text-danger text-center mt-4">Want to delete account ? <br>
+    <a href="{% url 'delete_account' %}" class="btn btn-danger">Delete Account</a>
+</p>
+
 
 
 {% endblock content %}

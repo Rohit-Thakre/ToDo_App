@@ -8,65 +8,51 @@ register
 
 
 {% block content %}
-<section class="vh-100 bg-dark">
-    <div class="container py-2 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                <div class="card bg-dark text-white border border-2 border-light shadow" style="border-radius: 1rem;">
-                    <div class="card-body p-5 pb-4 pt-3 text-center ">
-                        <div class="mb-md-1 mt-md-1 pb-1">
-                            <h2 class=" fw-bold mb-1">REGISTER</h2>
 
-                            <div class="alert alert-danger alert-dismissible fade m-0 
+<h2 class=" fw-bold mb-1 text-center">REGISTER</h2>
+
+<div class="alert alert-danger alert-dismissible fade m-0 
                             {% if val %}
                                 show
                             {% endif %}
                                 " id="msg">
 
-                                <p class="m-0 p-0 h6" id="msg_content">
-                                    {{msg}}
-                                </p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                            </div>
+    <p class="m-0 p-0 h6" id="msg_content">
+        {{msg}}
+    </p>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
 
 
+<form action="" onsubmit="return validate()" method="post">
 
-                            <form action="" onsubmit="return validate()" method="post">
+    {% csrf_token %}
+    <div class="form-outline form-white mb-4 mt-3">
+        <input required type="text" name="full_name" id="full_name" class="form-control form-control-lg"
+            placeholder="Full Name" />
+    </div>
+    <div class="form-outline form-white mb-4">
+        <input required type="text" id="email" class="form-control form-control-lg" placeholder="User name"
+            name="username" />
+    </div>
 
-                                {% csrf_token %}
-                                <div class="form-outline form-white mb-4 mt-3">
-                                    <input required type="text" name="full_name" id="full_name"
-                                        class="form-control form-control-lg" placeholder="Full Name" />
-                                </div>
-                                <div class="form-outline form-white mb-4">
-                                    <input required type="text" id="email" class="form-control form-control-lg"
-                                        placeholder="User name" name="username" />
-                                </div>
+    <div class="form-outline form-white mb-4">
+        <input required type="password" id="pass1" class="form-control form-control-lg" placeholder="Password"
+            name="pass1" />
+    </div>
+    <div class="form-outline form-white mb-4">
+        <input required type="password" id="pass2" class="form-control form-control-lg" placeholder="Confirm Password"
+            name="pass2" />
+    </div>
 
-                                <div class="form-outline form-white mb-4">
-                                    <input required type="password" id="pass1" class="form-control form-control-lg"
-                                        placeholder="Password" name="pass1" />
-                                </div>
-                                <div class="form-outline form-white mb-4">
-                                    <input required type="password" id="pass2" class="form-control form-control-lg"
-                                        placeholder="Confirm Password" name="pass2" />
-                                </div>
+    <button class="btn btn-primary btn-lg px-5 w-100" type="submit">Register</button>
 
-                                <button class="btn btn-outline-light btn-lg px-5 w-100" type="submit">Register</button>
-
-                            </form>
+</form>
 
 
-                            <p class="mb-0 mt-2">Already have an account? <a href="{% url 'login' %}"
-                                    class="text-white-50 fw-bold">Login</a>
-                            </p>
+<p class="mb-0 mt-2 text-center">Already have an account? <a href="{% url 'login' %}" class="fw-bold">Login</a>
+</p>
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-</section>
 
 {% endblock content %}
 
@@ -99,6 +85,7 @@ register
         }
         else {
             return true
+
         }
 
     }
